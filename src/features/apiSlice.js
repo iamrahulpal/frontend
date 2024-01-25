@@ -1,11 +1,17 @@
-import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/query/react';
+import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
+import { BASE_URL } from "../constants";
+console.log("🚀 ~ BASE_URL:", BASE_URL);
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://backend-deploy-gamma.vercel.app', 
+  baseUrl: BASE_URL,
+  prepareHeaders(headers) {
+    return headers;
+  },
+  credentials: "include"
 });
 
 export const apiSlice = createApi({
   baseQuery,
-  tagTypes: ['Post', 'User', 'Comment'],
-  endpoints: (builder) => ({}),
+  tagTypes: ["Post", "User", "Comment"],
+  endpoints: (builder) => ({})
 });
