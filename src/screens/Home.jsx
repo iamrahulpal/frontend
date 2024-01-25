@@ -14,7 +14,7 @@ function Home() {
     try {
       const res = await logout();
       dispatch(logoutUser());
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.log("🚀 ~ error:", error);
     }
