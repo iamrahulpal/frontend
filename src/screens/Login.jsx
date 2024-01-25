@@ -1,15 +1,32 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../features/userApiSlice";
+import { setCredentials } from "../features/authSlice";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [login, { isLoading }] = useLoginMutation();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
-      console.log(email);
-      console.log(password);
-    } catch (error) {}
+      const res = await login({
+        email,
+        password
+      }).unwrap();
+
+      console.log("🚀 ~ res:", res);
+      dispatch(setCredentials({ ...res.data }));
+      navigate("/home");
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
